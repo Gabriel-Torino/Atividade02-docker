@@ -1,19 +1,18 @@
 #!/bin/bash
-
-yum update -y
-yum install amazon-efs-utils -y
-yum install mysql -y
-mkdir /mnt/efs/carol/var/www/html
-yum install docker -y
-systemctl start docker
-systemctl enable docker
+sudo yum update -y
+sudo yum install docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo yum install amazon-efs-utils -y
+sudo mkdir /mnt/efs/
 sudo usermod -aG docker ec2-user
-sudo chkconfig docker on
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo mv /usr/local/bin/docker-compose /bin/docker-compose
-sudo curl -sL "https://raw.githubusercontent.com/CarolinaSFreitas/Atividade2-PB/main/src/dockercompose.yaml" --output /home/ec2-user/dockercompose.yaml
-sudo mount -t efs -o tls fs-02e8e2bba17248bd6:/ efs
-chown ec2-user:ec2-user /mnt/efs
-echo "fs-02e8e2bba17248bd6.efs.us-east-1.amazonaws.com:/ /mnt/efs nfs defaults 0 0" >> /etc/fstab
-docker-compose -f /home/ec2-user/dockercompose.yaml up -d
+sudo curl -sL "https://raw.githubusercontent.com/Gabriel-Torino/Atividade02-docker/main/dockercompose.yaml" --output "/home/ec2-user/dockercompose.yaml"
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-06bb3ec200e201714.efs.us-east-1.amazonaws.com:/ efs
+sudo chown ec2-user:ec2-user /mnt/efs
+sudo echo "fs-06bb3ec200e201714.efs.us-east-1.amazonaws.com:/ /mnt/efs nfs defaults 0 0" >> /etc/fstab
+sudo apt-get install https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
