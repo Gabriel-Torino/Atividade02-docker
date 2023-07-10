@@ -13,6 +13,4 @@ sudo curl -sL "https://raw.githubusercontent.com/Gabriel-Torino/Atividade02-dock
 sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-06bb3ec200e201714.efs.us-east-1.amazonaws.com:/ efs
 sudo chown ec2-user:ec2-user /mnt/efs
 sudo echo "fs-06bb3ec200e201714.efs.us-east-1.amazonaws.com:/ /mnt/efs nfs defaults 0 0" >> /etc/fstab
-sudo apt-get install https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-sudo systemctl enable amazon-ssm-agent
-sudo systemctl start amazon-ssm-agent
+
