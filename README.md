@@ -97,7 +97,6 @@ sudo yum install docker -y
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -aG docker ec2-user
-sudo chkconfig docker on
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 curl -sL "https://raw.githubusercontent.com/Gabriel-Torino/Atividade02-docker/main/dockercompose.yaml" --output "/home/ec2-user/dockercompose.yaml"
 sudo chmod +x /usr/local/bin/docker-compose
